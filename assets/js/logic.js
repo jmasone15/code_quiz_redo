@@ -17,8 +17,9 @@ function startQuiz () {
     questionsScreen.removeAttribute("class");
     questionsScreen.setAttribute("class", "index");
 
+    //timer function
     setInterval(function timer() {
-        document.getElementById("timer").innerHTML = "Time: " + seconds;
+        timerVar.innerHTML = "Time: " + seconds;
         seconds -- ;
         if (seconds == 0) {
             alert ("Time is up!");
@@ -30,4 +31,6 @@ function startQuiz () {
             highscorelink.setAttribute("class", "hide")
         }
     }, 1000);
+
+    //appends questions to the page
 }
