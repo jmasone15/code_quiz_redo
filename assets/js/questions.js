@@ -1,5 +1,5 @@
 //list of all questions, choices, and answers
-var questions = [
+const questions = [
     {
         title: "Which of the following names is NOT one of the Nook clan?",
         choices: ["Timmy", "Tammy", "Tom", "Tommy"],

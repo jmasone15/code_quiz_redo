@@ -10,6 +10,11 @@
     margin-bottom: 50px;
 }
 
+.question-header {
+    font-size: 30px;
+    margin-bottom: 50px;
+}
+
 .start-text {
     margin-bottom: 50px;
     margin-top: 25px;
@@ -33,6 +38,11 @@ button {
 }
 
 #start-button:hover {
+    background-color: white;
+    color: rgb(0, 238, 226);
+}
+
+#question-button:hover {
     background-color: white;
     color: rgb(0, 238, 226);
 }

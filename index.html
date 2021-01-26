@@ -25,15 +25,23 @@
     </div>
 
     <div class="hide" id="questions">
-        <h1 class="header">Test</h1>
-        <div class="choices">Test</div>
+        <h3 class="header question-header" id="question-title">Test</h3>
+        <div class="choices" id="choices">
+            <button id="question0" class="question-button">Test1</button>
+            <br><br>
+            <button id="question1" class="question-button">Test2</button>
+            <br><br>
+            <button id="question2" class="question-button">Test3</button>
+            <br><br>
+            <button id="question3" class="question-button">Test4</button>
+        </div>
     </div>
 
     <div id="end-screen" class="hide">
         <h2 class="header">Well Done!</h2>
         <p>Your final score is <span class="final-score"></span>.</p>
         <p>
-            Enter Initials: <input type="text" id="initials" max="3" />
+            Enter Initials: <input type="text" id="initials" max="3" required />
             <a href="highscores.html"><button id="submit">Submit</button></a>
         </p>
     </div>
