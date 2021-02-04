@@ -4,7 +4,6 @@ const questionsScreen = document.getElementById("questions");
 const endScreen = document.getElementById("end-screen");
 const timerVar = document.getElementById("timer");
 const highscorelink = document.getElementById("highscore-link");
-const questionBtn = document.getElementsByClassName("question-button");
 const userChoice = [];
 var seconds = 75;
 let questionIndex = 0;
@@ -60,43 +59,54 @@ function renderQuestion(num) {
     questionText2.innerHTML = questions[num].choices[2];
     questionText3.innerHTML = questions[num].choices[3];
 
-    questionIndex++
-    checkAnswer(num)
+    questionText0.addEventListener("click", function () {
+        let answer = this.innerHTML;
+        checkAnswer(answer)
+    });
+    questionText1.addEventListener("click", function () {
+        let answer = this.innerHTML;
+        checkAnswer(answer)
+    });
+    questionText2.addEventListener("click", function () {
+        let answer = this.innerHTML;
+        checkAnswer(answer)
+    });
+    questionText3.addEventListener("click", function () {
+        let answer = this.innerHTML;
+        checkAnswer(answer)
+    });
+
 }
 
-function checkAnswer(num) {
+function checkAnswer(value) {
     if (questionIndex < 10) {
-        for (var i = 0; i < questionBtn.length; i++) {
-            questionBtn[i].addEventListener("click", function () {
-                userChoice.push(this.innerHTML);
-                console.log(userChoice);
-
-                if (userChoice[num] === questions[num].answer) {
-                    alert("Correct!");
-                    renderQuestion(questionIndex);
-                } else if (userChoice[num] !== questions[num].answer) {
-                    alert("Incorrect!");
-                    seconds -= 10;
-                    renderQuestion(questionIndex);
-                }
-            });
+        if (answers.includes(value) === true) {
+            console.log(value);
+            alert("Correct!");
+            questionIndex++;
+            renderQuestion(questionIndex);
+        } else {
+            alert("Incorrect!");
+            console.log(value);
+            seconds -= 10;
+            questionIndex++;
+            renderQuestion(questionIndex);
         }
     } else if (questionIndex = 10) {
-        for (var i = 0; i < questionBtn.length; i++) {
-            questionBtn[i].addEventListener("click", function () {
-                userChoice.push(this.innerHTML);
-                console.log(userChoice);
-
-                if (userChoice[num] === questions[num].answer) {
-                    alert("Correct!");
-                    endQuiz();
-                } else if (userChoice[num] !== questions[num].answer) {
-                    alert("Incorrect!");
-                    seconds -= 10;
-                    endQuiz();
-                }
-            });
+        if (answers.includes(value) === true) {
+            alert("Correct!");
+            console.log(value);
+            questionIndex++;
+            endQuiz();
+        } else {
+            alert("Incorrect!");
+            console.log(value);
+            seconds -= 10;
+            questionIndex++;
+            endQuiz();
         }
+    } else {
+        endQuiz();
     }
 }
 
