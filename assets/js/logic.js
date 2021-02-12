@@ -3,8 +3,11 @@ const startPage = document.getElementById("start-screen");
 const questionPage = document.getElementById("questions");
 const questionBtns = document.getElementsByClassName("question-button");
 const endPage = document.getElementById("end-screen");
-const highscorelink = document.getElementById("highscore-link");
-const timerVar = document.getElementById("timer");
+const highscorelink = document.getElementById("highscore-button");
+const timerDiv = document.getElementById("timer");
+const timerVar = document.getElementById("timer1");
+const correctAnswer = document.getElementById("correct");
+const incorrectAnswer = document.getElementById("incorrect");
 const answers = [];
 const userHighscores = [];
 for (let i = 0; i < questions.length; i++) {
@@ -20,19 +23,14 @@ function startQuiz() {
     startPage.setAttribute("class", "hide");
     questionPage.removeAttribute("class");
     questionPage.setAttribute("class", "index");
-    timerVar.removeAttribute("style");
+    timerDiv.removeAttribute("style");
 
     setInterval(function timer() {
         timerVar.innerHTML = "Time: " + seconds;
         seconds--;
         if (seconds == 0) {
             alert("Time is up!");
-
-            questionPage.setAttribute("class", "hide");
-            endScreen.removeAttribute("class");
-            endScreen.setAttribute("class", "index");
-            timerVar.setAttribute("class", "hide")
-            highscorelink.setAttribute("class", "hide")
+            endQuiz();
         }
     }, 1000);
 
@@ -40,6 +38,7 @@ function startQuiz() {
 }
 
 function renderQuestion(num) {
+
     const questionTitle = document.getElementById("question-title");
     const questionBtn0 = document.getElementById("question0");
     const questionBtn1 = document.getElementById("question1");
@@ -56,9 +55,11 @@ function renderQuestion(num) {
 for (let i = 0; i < questionBtns.length; i++) {
     const button = questionBtns[i];
     button.addEventListener("click", () => {
+        correctAnswer.setAttribute("class", "hide");
+        incorrectAnswer.setAttribute("class", "hide");
         let answer = button.innerHTML;
         if (answers.includes(answer) === true) {
-            alert("Correct!");
+            correctAnswer.removeAttribute("class");
             if (questionIndex < 9) {
                 questionIndex++
                 renderQuestion(questionIndex);
@@ -68,7 +69,7 @@ for (let i = 0; i < questionBtns.length; i++) {
                 endQuiz();
             }
         } else {
-            alert("Incorrect!");
+            incorrectAnswer.removeAttribute("class");
             if (questionIndex < 9) {
                 questionIndex++
                 seconds -= 10;
@@ -96,6 +97,9 @@ function endQuiz() {
 
 const submitBtn = document.getElementById("submit");
 submitBtn.addEventListener("click", function () {
+    correctAnswer.setAttribute("class", "hide");
+    incorrectAnswer.setAttribute("class", "hide");
+
     let userInitials = document.getElementById("initials").value;
     let finalScore = score;
     let userFinal = {
@@ -104,6 +108,5 @@ submitBtn.addEventListener("click", function () {
     }
 
     userHighscores.push(userFinal);
-
     localStorage.setItem("scores", JSON.stringify(userHighscores));
 });
