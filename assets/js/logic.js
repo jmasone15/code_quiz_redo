@@ -6,18 +6,21 @@ const endPage = document.getElementById("end-screen");
 const highscorelink = document.getElementById("highscore-link");
 const timerVar = document.getElementById("timer");
 const answers = [];
+const userHighscores = [];
 for (let i = 0; i < questions.length; i++) {
     answers.push(questions[i].answer)
 }
-let seconds = 75;
+let seconds = 74;
 let questionIndex = 0;
+let score = 0;
 
 startBtn.onclick = startQuiz;
 
 function startQuiz() {
     startPage.setAttribute("class", "hide");
     questionPage.removeAttribute("class");
-    questionPage.setAttribute("class", "index")
+    questionPage.setAttribute("class", "index");
+    timerVar.removeAttribute("style");
 
     setInterval(function timer() {
         timerVar.innerHTML = "Time: " + seconds;
@@ -61,6 +64,7 @@ for (let i = 0; i < questionBtns.length; i++) {
                 renderQuestion(questionIndex);
             }
             else if (questionIndex === 9) {
+                score += seconds;
                 endQuiz();
             }
         } else {
@@ -71,6 +75,8 @@ for (let i = 0; i < questionBtns.length; i++) {
                 renderQuestion(questionIndex);
             }
             else if (questionIndex === 9) {
+                seconds -= 10;
+                score += seconds;
                 endQuiz();
             }
         }
@@ -78,9 +84,26 @@ for (let i = 0; i < questionBtns.length; i++) {
 }
 
 function endQuiz() {
+    let finalScore = document.getElementById("score");
+    finalScore.innerHTML = score;
+
     questionPage.setAttribute("class", "hide");
     endPage.removeAttribute("class");
     endPage.setAttribute("class", "index");
     timerVar.setAttribute("class", "hide");
     highscorelink.setAttribute("class", "hide");
 }
+
+const submitBtn = document.getElementById("submit");
+submitBtn.addEventListener("click", function () {
+    let userInitials = document.getElementById("initials").value;
+    let finalScore = score;
+    let userFinal = {
+        initials: userInitials,
+        score: finalScore
+    }
+
+    userHighscores.push(userFinal);
+
+    localStorage.setItem("scores", JSON.stringify(userHighscores));
+});

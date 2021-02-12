@@ -11,7 +11,7 @@
 
 <body>
     <div class="highscore-link" id="highscore-link"> <a href="highscores.html">View Highscores</a></div>
-    <div class="timer" id="timer">Time:</div>
+    <div class="timer" id="timer" style="display: none;">Time:</div>
     <div class="index" id="start-screen">
         <h2 class="header">Coding Quiz</h2>
 
@@ -39,7 +39,7 @@
 
     <div id="end-screen" class="hide">
         <h2 class="header">Well Done!</h2>
-        <p>Your final score is <span class="final-score"></span>.</p>
+        <p>Your final score is <span class="final-score" id="score"></span>.</p>
         <p>
             Enter Initials: <input type="text" id="initials" max="3" required />
             <a href="highscores.html"><button id="submit">Submit</button></a>
