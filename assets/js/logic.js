@@ -9,6 +9,7 @@ const timerVar = document.getElementById("timer1");
 const correctAnswer = document.getElementById("correct");
 const incorrectAnswer = document.getElementById("incorrect");
 const answers = [];
+let userFinal = [{ initials: "", score: 0 }];
 const userHighscores = [];
 for (let i = 0; i < questions.length; i++) {
     answers.push(questions[i].answer)
@@ -28,8 +29,7 @@ function startQuiz() {
     setInterval(function timer() {
         timerVar.innerHTML = "Time: " + seconds;
         seconds--;
-        if (seconds == 0) {
-            alert("Time is up!");
+        if (seconds === 0 || seconds < 0) {
             endQuiz();
         }
     }, 1000);
@@ -97,16 +97,17 @@ function endQuiz() {
 
 const submitBtn = document.getElementById("submit");
 submitBtn.addEventListener("click", function () {
+    let initials = document.getElementById("initials").value;
+    let pastScores = JSON.parse(localStorage.getItem("highscores"));
+    let highScore = [{ initials: initials, score: score }];
+
+    if (pastScores === null) {
+        pastScores = highScore;
+    } else {
+        pastScores.push(highScore[0]);
+    }
+    localStorage.setItem("highscores", JSON.stringify(pastScores));
+
     correctAnswer.setAttribute("class", "hide");
     incorrectAnswer.setAttribute("class", "hide");
-
-    let userInitials = document.getElementById("initials").value;
-    let finalScore = score;
-    let userFinal = {
-        initials: userInitials,
-        score: finalScore
-    }
-
-    userHighscores.push(userFinal);
-    localStorage.setItem("scores", JSON.stringify(userHighscores));
 });
